@@ -48,14 +48,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.
+        http.csrf().disable().
                 authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/registration").permitAll()
-                .antMatchers("/user/admin/**")
-                .hasAuthority("ADMIN").anyRequest()
-                .authenticated().and().csrf().disable().formLogin()
+                .antMatchers("/user/submit").permitAll()
+                .antMatchers("/user/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated().and().formLogin()
                 .loginPage("/user/login").failureUrl("/user/login?error=true")
                 .defaultSuccessUrl("/user/admin/home")
                 .usernameParameter("email")
@@ -71,8 +71,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**","classpath:/static/", "/css/**", "/js/**", "/images/**");
+                .antMatchers("/resources/**", "/static/**", "classpath:/static/", "/css/**", "/js/**", "/images/**");
     }
+
     @Bean
     public LayoutDialect thymeleafLayoutDialect() {
         return new LayoutDialect();

@@ -1,8 +1,9 @@
 package iqbal.salman.bank.ukubima.bankukubima.Controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import iqbal.salman.bank.ukubima.bankukubima.Service.UserService;
+import iqbal.salman.bank.ukubima.bankukubima.Service.Implementation;
 import iqbal.salman.bank.ukubima.bankukubima.entity.user.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,13 +23,14 @@ import javax.validation.Valid;
 public class LoginController {
 
     @Autowired
-    UserService userService;
+    Implementation userService;
 
-    @GetMapping(value = {"/","/login"})
-    public String Loginpriview(ModelMap params){
+    private final Logger console = LoggerFactory.getLogger(LoginController.class);
+
+    @GetMapping(value = {"/", "/login"})
+    public String Loginpriview(ModelMap params) {
         params.addAttribute("login");
         return "/pages/user/login";
-
     }
 
     @GetMapping("/registration")
@@ -39,20 +41,21 @@ public class LoginController {
 
     @PostMapping("/submit")
     public String submitAgama(@Valid @ModelAttribute User user,
-                                   BindingResult bindingResult, RedirectAttributes ridek){
+                              BindingResult bindingResult, RedirectAttributes ridek) {
+        System.out.println("metthod called!");
         User userExists = userService.findUserByEmail(user.getEmail());
-        if (userExists != null){
+        if (userExists != null) {
             bindingResult.rejectValue("email", "error.user",
                     "There is already a user registered with the email provided");
-
         }
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "/pages/user/registrasi";
         }
-            userService.saveUser(user);
-            ridek.addFlashAttribute("sukses","Registrasi berhasi dilakukan");
-            return "redirect:/user/login";
+        console.info("{}", user);
+        user = userService.saveUser(user);
+        ridek.addFlashAttribute("sukses", "Registrasi berhasi dilakukan");
+        return "redirect:/";
 
     }
 
@@ -60,10 +63,9 @@ public class LoginController {
     public String AdminUser(ModelMap prs) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        prs.addAttribute("user",user);
+        prs.addAttribute("user", user);
         return "/pages/user/admin";
     }
-
 
 
 }

@@ -18,7 +18,7 @@ import java.util.HashSet;
 
 @Service("userService")
 @Transactional(readOnly = true)
-public class Implementation implements UserService {
+public class Implementation {
 
     @Autowired
     RoleRepository roleRepository;
@@ -26,10 +26,10 @@ public class Implementation implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-    @Override
+    //    @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }

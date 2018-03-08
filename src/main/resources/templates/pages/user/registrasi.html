@@ -46,16 +46,23 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="password">Password</label>
-                            <input type="password" th:field="*{password}" name="password"
-                                   id="password" placeholder="Password" class="form-control" />
-                            <input type="hidden"
-                                   name="${_csrf.parameterName}"
-                                   value="${_csrf.token}"/>
+                            <input type="password" th:field="*{password}" id="password" placeholder="password"
+                                   name="email" class="form-control" />
                             <label
                                     th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                                     class="validation-message"></label>
                         </div>
 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">
+                        <label  for="akses">Jenis Akses</label>
+                        <select name="akses" id="akses" th:field="*{listRole}" class="form-control">
+                            <option value="" th:each="role: ${roles}" th:value="${role.id}"
+                                    th:label="${role.role}">
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Registrasi</button>

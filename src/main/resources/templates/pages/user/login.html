@@ -12,6 +12,7 @@
         <div class="card card-login mx-auto mt-5">
             <div class="card-header">Login</div>
             <div class="card-body">
+                <div class="alert alert-success" th:if="${sukses} != null" th:text="${sukses}"></div>
                 <form   action="/user/login" method="post" th:action="@{/user/login}">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>

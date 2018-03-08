@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 
 @Service("userService")
@@ -40,8 +41,11 @@ public class Implementation {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
         user.setTanggal(Timestamp.valueOf(LocalDateTime.now()));
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return this.userRepository.save(user);
+    }
+
+    @Transactional
+    public List<Role>findAll(){
+       return this.roleRepository.findAll();
     }
 }

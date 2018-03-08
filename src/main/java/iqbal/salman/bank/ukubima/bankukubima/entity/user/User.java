@@ -10,6 +10,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,11 +30,12 @@ public class User {
     @Email(message = "*Please provide a valid Email")
     @NotEmpty(message = "*Please provide an email")
     private String email;
+
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
-    @Transient
     private String password;
+
     @Column(name = "name")
     @NotEmpty(message = "*Please provide your name")
     private String name;
@@ -51,5 +54,5 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false),
             schema = "security"
     )
-    private Set<Role> roles;
+    private List<Role> listRole = new ArrayList<>();
 }

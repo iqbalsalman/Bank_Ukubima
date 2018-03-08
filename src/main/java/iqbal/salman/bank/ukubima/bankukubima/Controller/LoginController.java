@@ -36,11 +36,12 @@ public class LoginController {
     @GetMapping("/registration")
     public String Registrasi(User user, ModelMap params) {
         params.addAttribute("user", user);
+        params.addAttribute("roles",userService.findAll());
         return "/pages/user/registrasi";
     }
 
     @PostMapping("/submit")
-    public String submitAgama(@Valid @ModelAttribute User user,
+    public String submitFormRegistrasi(@Valid @ModelAttribute User user,
                               BindingResult bindingResult, RedirectAttributes ridek) {
         System.out.println("metthod called!");
         User userExists = userService.findUserByEmail(user.getEmail());
@@ -53,9 +54,9 @@ public class LoginController {
             return "/pages/user/registrasi";
         }
         console.info("{}", user);
-        user = userService.saveUser(user);
+        userService.saveUser(user);
         ridek.addFlashAttribute("sukses", "Registrasi berhasi dilakukan");
-        return "redirect:/";
+        return "redirect:/user/login";
 
     }
 

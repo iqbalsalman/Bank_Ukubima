@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/user}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Register an Account</div>
+        <div class="card-body">
+            <form  th:action="@{/user/submit}"
+                  th:object="${user}"
+                  th:method="post" action="/user/submit"
+                  method="post" enctype="multipart/form-data" >
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="name">First name</label>
+                            <input type="text" th:field="*{name}" name="name"
+                                   id="name" placeholder="First name" class="form-control" />
+                            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                   class="validation-message"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName">Last name</label>
+                            <input type="text" th:field="*{lastName}" id="lastName"
+                                   placeholder="Last Name"  name="lastName" class="form-control" />
+                            <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                      class="validation-message"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="text" th:field="*{email}" id="email" placeholder="Email"
+                           name="email" class="form-control" />
+                    <label
+                            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                            class="validation-message"></label>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="password">Password</label>
+                            <input type="password" th:field="*{password}" name="password"
+                                   id="password" placeholder="Password" class="form-control" />
+                            <input type="hidden"
+                                   name="${_csrf.parameterName}"
+                                   value="${_csrf.token}"/>
+                            <label
+                                    th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                    class="validation-message"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrasi</button>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3"href="#" th:href="@{/user/login}">Login Page</a>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</body>
+</html>

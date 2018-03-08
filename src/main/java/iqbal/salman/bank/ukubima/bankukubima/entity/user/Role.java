@@ -22,7 +22,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_security_seq")
     @Column(name = "role_id", nullable = false, unique = true)
     private Long id;
-    @Column(name="role")
+    @Column(name="authority")
     private String role;
 
 }

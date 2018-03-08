@@ -44,7 +44,7 @@ public class LoginController {
     public String submitFormRegistrasi(@Valid @ModelAttribute User user,
                               BindingResult bindingResult, RedirectAttributes ridek) {
         System.out.println("metthod called!");
-        User userExists = userService.findUserByEmail(user.getEmail());
+        User userExists = userService.findUserByUsername(user.getUsername());
         if (userExists != null) {
             bindingResult.rejectValue("email", "error.user",
                     "There is already a user registered with the email provided");
@@ -60,13 +60,11 @@ public class LoginController {
 
     }
 
-    @GetMapping("/admin/home")
+    @GetMapping("/admin")
     public String AdminUser(ModelMap prs) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
+        User user = userService.findUserByUsername(auth.getName());
         prs.addAttribute("user", user);
         return "/pages/user/admin";
     }
-
-
 }

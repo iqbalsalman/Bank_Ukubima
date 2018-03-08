@@ -11,13 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.time.LocalDateTime;;
 import java.util.List;
 
 
-@Service("userService")
+@Service
 @Transactional(readOnly = true)
 public class Implementation {
 
@@ -31,8 +29,8 @@ public class Implementation {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //    @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 

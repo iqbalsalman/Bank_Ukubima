@@ -6,13 +6,13 @@ CREATE SEQUENCE role_seq
 
 CREATE TABLE security.roles (
   role_id      int8 PRIMARY KEY   NOT NULL DEFAULT nextval('role_seq'),
-  role    CHARACTER VARYING (255) DEFAULT NULL
+  authority    CHARACTER VARYING (255) DEFAULT NULL
 );
 
 CREATE TABLE security.users (
   user_id      CHARACTER VARYING(64) PRIMARY KEY NOT NULL,
-  active       int4 ,
-  email        CHARACTER VARYING(255) NOT NULL,
+  enabled       int4 ,
+  username        CHARACTER VARYING(255) NOT NULL,
   last_name    CHARACTER VARYING(255) NOT NULL,
   name         CHARACTER VARYING(255) NOT NULL,
   password     CHARACTER VARYING(255) NOT NULL,

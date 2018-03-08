@@ -26,10 +26,9 @@ public class User {
     @Column(name = "user_id", length = 64, nullable = false, unique = true)
     private  String id;
 
-    @Column(name = "email")
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
-    private String email;
+    @Column(name = "username")
+    @NotEmpty(message = "*Please provide an username")
+    private String username;
 
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
@@ -42,7 +41,7 @@ public class User {
     @Column(name = "last_name")
     @NotEmpty(message = "*Please provide your last name")
     private String lastName;
-    @Column(name = "active")
+    @Column(name = "enabled")
     private int active;
 
     @Column(name = " created_date")

@@ -25,4 +25,5 @@ public class Role {
     @Column(name="authority")
     private String role;
 
+
 }
